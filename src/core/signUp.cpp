@@ -15,24 +15,28 @@ static int nextUserId(const vector<User>& users) {
 }
 
 void SignUp::registerUser(vector<User>& users) {
-    LabelMenu::printTitleMenu("Register — Select Role", {
-        {"1","Admin"}, {"2","Librarian"}, {"3","User"}
+    // ── Public registration: always creates a User account only.
+    // ── Admin and Librarian accounts are created by an Admin after login.
+    const string role = "user";
+
+    LabelMenu::printTitleMenu("Register New Account", {
+        {"", "Role is set to: User"}
     });
-    cout << "Choose your role : ";
-    int rc; cin >> rc;
-    string role = (rc==1) ? "admin" : (rc==2) ? "librarian" : "user";
 
     string fullName, username, password, email;
     clearInput();
     cout << "\n  Full Name : "; getline(cin, fullName);
     cout << "  Username  : "; getline(cin, username);
 
+    // Duplicate username check
     for (auto& u : users) {
         if (u.getUsername() == username) {
             LabelMenu::printMsg(false, "Username \"" + username + "\" already exists.");
-            pauseScreen(); return;
+            pauseScreen();
+            return;
         }
     }
+
     cout << "  Password  : ";
     password = HidePwd::readPassword();
     cout << "  Email     : "; getline(cin, email);
