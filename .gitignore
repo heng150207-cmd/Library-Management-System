@@ -1,0 +1,11 @@
+build/
+*.xlsx
+*.exe
+*.o
+*.out
+.vscode/
+*.user
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
